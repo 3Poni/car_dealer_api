@@ -21,6 +21,13 @@ services:
     volumes:
       - ./:/var/www
     working_dir: /var/www
+    user: "www-data"
+    environment:
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_DATABASE: laravel
+      DB_USERNAME: laravel
+      DB_PASSWORD: secret
     container_name: car_dealer
     networks:
       - laravel
