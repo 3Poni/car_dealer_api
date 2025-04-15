@@ -9,6 +9,15 @@ if [ ! -f ".env" ]; then
     cp .env.example .env
 fi
 
+# Выполняем миграции и сидеры, но только если таблица не существует
+if [ ! -f /var/www/storage/installed ]; then
+  echo "Выполняем миграции и сиды..."
+  php artisan migrate:fresh --seed --force
+  touch /var/www/storage/installed
+else
+  echo "Приложение уже установлено, миграции пропускаем."
+fi
+
 php-fpm -D
 
 tail -f /dev/null
