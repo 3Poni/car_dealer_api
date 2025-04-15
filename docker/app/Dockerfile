@@ -22,8 +22,8 @@ WORKDIR /var/www
 COPY --chown=www-data:www-data . .
 
 # Giving permissions
-RUN chmod -R 755 /var/www/storage
-RUN chmod -R 755 /var/www/bootstrap
+RUN chown -R www-data:www-data /var/www/storage
+RUN chown -R www-data:www-data /var/www/bootstrap/
 
 # Enter entrypoint
 ENTRYPOINT [ "docker/entrypoint.sh" ]

@@ -9,6 +9,15 @@ if [ ! -f ".env" ]; then
     cp .env.example .env
 fi
 
+LOG_FILE=/var/www/storage/logs/laravel.log
+
+if [ ! -f "$LOG_FILE" ]; then
+    mkdir -p /var/www/storage/logs
+    touch "$LOG_FILE"
+    chown -R www-data:www-data "$LOG_FILE"
+    echo "Log file created at $LOG_FILE"
+fi
+
 # Выполняем миграции и сидеры, но только если таблица не существует
 if [ ! -f /var/www/storage/installed ]; then
   echo "Выполняем миграции и сиды..."
